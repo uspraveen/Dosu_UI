@@ -53,6 +53,30 @@
             z-index: 1;
         }
 
+        /* Middle chat history panel */
+        .history-panel {
+            width: 280px;
+            display: flex;
+            flex-direction: column;
+            background: rgba(8, 8, 8, 0.8);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+            overflow: hidden;
+            transition: width 0.3s ease;
+        }
+
+        .history-panel.collapsed {
+            width: 0;
+            border-right: none;
+        }
+
+        .history-toggle {
+            align-self: flex-end;
+            padding: 8px 12px;
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
         /* Left Sidebar */
         .sidebar {
             width: 320px;
@@ -1109,68 +1133,7 @@
                 </div>
             </div>
 
-            <!-- Session History -->
-            <div class="session-history">
-                <div class="history-header">
-                    <h3 class="history-title">Recent Chats</h3>
-                    <button class="new-chat-btn">
-                        <span>✏️</span>
-                        New Chat
-                    </button>
-                </div>
-
-                <div class="search-box">
-                    <div class="search-icon">🔍</div>
-                    <input type="text" class="search-input" placeholder="Search conversations...">
-                </div>
-
-                <div class="history-list">
-                    <div class="history-item active">
-                        <div class="history-title-text">Understanding Neo4j graph generation process</div>
-                        <div class="history-preview">how does neo4j graph generation work here</div>
-                        <div class="history-meta">
-                            <div class="history-time">Last Friday</div>
-                            <div class="history-type">Ask</div>
-                        </div>
-                    </div>
-
-                    <div class="history-item">
-                        <div class="history-title-text">FastAPI authentication implementation</div>
-                        <div class="history-preview">show me how to implement JWT auth in FastAPI</div>
-                        <div class="history-meta">
-                            <div class="history-time">2 days ago</div>
-                            <div class="history-type">Code</div>
-                        </div>
-                    </div>
-
-                    <div class="history-item">
-                        <div class="history-title-text">Database migration strategies</div>
-                        <div class="history-preview">what are the best practices for database migrations</div>
-                        <div class="history-meta">
-                            <div class="history-time">1 week ago</div>
-                            <div class="history-type">Ask</div>
-                        </div>
-                    </div>
-
-                    <div class="history-item">
-                        <div class="history-title-text">React component optimization</div>
-                        <div class="history-preview">how to optimize React components for performance</div>
-                        <div class="history-meta">
-                            <div class="history-time">1 week ago</div>
-                            <div class="history-type">Review</div>
-                        </div>
-                    </div>
-
-                    <div class="history-item">
-                        <div class="history-title-text">API rate limiting implementation</div>
-                        <div class="history-preview">implement rate limiting for REST API endpoints</div>
-                        <div class="history-meta">
-                            <div class="history-time">2 weeks ago</div>
-                            <div class="history-type">Code</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- Session History moved to separate panel -->
 
             <!-- Sources Section at Bottom -->
             <div class="sources-section">
@@ -1253,6 +1216,72 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat History Panel -->
+        <div class="history-panel" id="historyPanel">
+            <div class="history-toggle" id="historyToggle">❮</div>
+            <div class="session-history">
+                <div class="history-header">
+                    <h3 class="history-title">Recent Chats</h3>
+                    <button class="new-chat-btn">
+                        <span>✏️</span>
+                        New Chat
+                    </button>
+                </div>
+
+                <div class="search-box">
+                    <div class="search-icon">🔍</div>
+                    <input type="text" class="search-input" placeholder="Search conversations...">
+                </div>
+
+                <div class="history-list">
+                    <div class="history-item active">
+                        <div class="history-title-text">Understanding Neo4j graph generation process</div>
+                        <div class="history-preview">how does neo4j graph generation work here</div>
+                        <div class="history-meta">
+                            <div class="history-time">Last Friday</div>
+                            <div class="history-type">Ask</div>
+                        </div>
+                    </div>
+
+                    <div class="history-item">
+                        <div class="history-title-text">FastAPI authentication implementation</div>
+                        <div class="history-preview">show me how to implement JWT auth in FastAPI</div>
+                        <div class="history-meta">
+                            <div class="history-time">2 days ago</div>
+                            <div class="history-type">Code</div>
+                        </div>
+                    </div>
+
+                    <div class="history-item">
+                        <div class="history-title-text">Database migration strategies</div>
+                        <div class="history-preview">what are the best practices for database migrations</div>
+                        <div class="history-meta">
+                            <div class="history-time">1 week ago</div>
+                            <div class="history-type">Ask</div>
+                        </div>
+                    </div>
+
+                    <div class="history-item">
+                        <div class="history-title-text">React component optimization</div>
+                        <div class="history-preview">how to optimize React components for performance</div>
+                        <div class="history-meta">
+                            <div class="history-time">1 week ago</div>
+                            <div class="history-type">Review</div>
+                        </div>
+                    </div>
+
+                    <div class="history-item">
+                        <div class="history-title-text">API rate limiting implementation</div>
+                        <div class="history-preview">implement rate limiting for REST API endpoints</div>
+                        <div class="history-meta">
+                            <div class="history-time">2 weeks ago</div>
+                            <div class="history-type">Code</div>
                         </div>
                     </div>
                 </div>
@@ -1369,6 +1398,8 @@
         const inputOverlay = document.getElementById('inputOverlay');
         const sessionSources = document.getElementById('sessionSources');
         const dropZone = document.getElementById('dropZone');
+        const historyPanel = document.getElementById('historyPanel');
+        const historyToggle = document.getElementById('historyToggle');
 
         // Navigation functionality
         document.querySelectorAll('.nav-tab').forEach(tab => {
@@ -1384,6 +1415,12 @@
                 document.querySelectorAll('.history-item').forEach(i => i.classList.remove('active'));
                 item.classList.add('active');
             });
+        });
+
+        // Toggle history panel
+        historyToggle.addEventListener('click', () => {
+            historyPanel.classList.toggle('collapsed');
+            historyToggle.textContent = historyPanel.classList.contains('collapsed') ? '❯' : '❮';
         });
 
         // Drag and Drop functionality
